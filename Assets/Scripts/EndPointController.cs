@@ -8,7 +8,7 @@ public class EndPointController : MonoBehaviour
     {
         if(collision.tag == "Enemy")
         {
-            Debug.Log("AH");
+            
         }
     }
 }
