@@ -5,13 +5,18 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
+    
+    private bool canDash = true;
+    private bool isDashing; // Whether the character is currently dashing or not
     public float dashDistance = 5f; // The distance the character will dash
     public float dashDuration = 0.5f; // The duration of the dash
-    public KeyCode dashKey = KeyCode.Space; // The key to press for dashing
-    
-    private bool isDashing = false; // Whether the character is currently dashing or not
+    private float dashingCooldown = 1f;
+    private KeyCode dashKey = KeyCode.Space; // The key to press for dashing
  
     private Rigidbody2D rb;
+    private Vector2 moveDir;
+    private Vector2 mousePos;
+
 
     void Start()
     {
@@ -20,38 +25,39 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (isDashing) return;
+
         // Move the player
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
-        Vector2 moveDir = new Vector2(x, y).normalized;
+        
+        moveDir = new Vector2(x, y).normalized;
+        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
         rb.velocity = moveDir * moveSpeed;
+
+        Vector2 lookDir = mousePos - rb.position;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+        rb.rotation = angle;
+
         // Check if the dash key is pressed and the character is not already dashing
-        if (Input.GetKeyDown(dashKey) && !isDashing)
+        if (Input.GetKeyDown(dashKey) && canDash)
         {
             StartCoroutine(Dash());
-        }   
-    }
-        private IEnumerator Dash()
-    {
-        isDashing = true;
-        
-        // Get the direction the character is facing
-        Vector2 direction = transform.right;
-        
-        // Calculate the destination position
-        Vector2 destination = (Vector2)transform.position + direction * dashDistance;
-        
-        // Calculate the duration of the dash
-        float duration = dashDuration * dashDistance / Vector2.Distance(transform.position, destination);
-        
-        // Move the character towards the destination position
-        while (Vector2.Distance(transform.position, destination) > 0.1f)
-        {
-            transform.position = Vector2.Lerp(transform.position, destination, Time.deltaTime / duration);
-            yield return null;
         }
-        
+    }
+
+    private IEnumerator Dash()
+    {   
+        canDash = false;
+        isDashing = true;
+
+        rb.velocity = moveDir * dashDistance;
+        yield return new WaitForSeconds(dashDuration);
+
         isDashing = false;
+        yield return new WaitForSeconds(dashingCooldown);
+        canDash = true;
     }
 }
 
