@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: speed
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4455039993734434670, guid: 09dad6007c20082449e20d1ca67d7b50, type: 3}
+      propertyPath: maxHealth
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8443359427424995843, guid: 09dad6007c20082449e20d1ca67d7b50, type: 3}
       propertyPath: m_Sprite
       value: 

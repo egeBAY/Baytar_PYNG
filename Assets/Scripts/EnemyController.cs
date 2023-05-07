@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     public float speed = 5f;
+    public float maxHealth = 3f;
+    public float health;
 
     private float distanceThreshold = 0.1f;
     private int currentIndex = 0;
@@ -12,12 +14,16 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
-
+        health = maxHealth;
     }
 
-
-    private void FixedUpdate()
+    public void TakeDamage(float damageAmount)
     {
+        health -= damageAmount;
 
+        if(health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
