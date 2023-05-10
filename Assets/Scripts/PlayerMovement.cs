@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2 lookDir = mousePos - rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
-        rb.rotation = angle;
+        // rb.rotation = angle;
 
         // Check if the dash key is pressed and the character is not already dashing
         if (Input.GetKeyDown(dashKey) && canDash)
