@@ -14,9 +14,12 @@ public class PlayerMovement : MonoBehaviour
     private KeyCode dashKey = KeyCode.Space; // The key to press for dashing
  
     private Rigidbody2D rb;
+    
     private Vector2 moveDir;
     private Vector2 mousePos;
+    private Vector2 movement;
 
+    public Animator animator;
 
     void Start()
     {
@@ -28,10 +31,14 @@ public class PlayerMovement : MonoBehaviour
         if (isDashing) return;
 
         // Move the player
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+
+        animator.SetFloat("Horizontal", movement.x);
+        animator.SetFloat("Vertical", movement.y);
+        animator.SetFloat("Speed", movement.sqrMagnitude);
         
-        moveDir = new Vector2(x, y).normalized;
+        moveDir = movement.normalized;
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         rb.velocity = moveDir * moveSpeed;
