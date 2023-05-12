@@ -15,6 +15,10 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5095022549527158513, guid: 09dad6007c20082449e20d1ca67d7b50, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8443359427424995843, guid: 09dad6007c20082449e20d1ca67d7b50, type: 3}
       propertyPath: m_Sprite
       value: 
