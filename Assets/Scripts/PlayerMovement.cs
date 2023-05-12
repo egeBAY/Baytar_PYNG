@@ -15,8 +15,7 @@ public class PlayerMovement : MonoBehaviour
  
     private Rigidbody2D rb;
     
-    private Vector2 moveDir;
-    private Vector2 mousePos;
+    private Vector2 moveDir;  
     private Vector2 movement;
 
     public Animator animator;
@@ -39,13 +38,8 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("Speed", movement.sqrMagnitude);
         
         moveDir = movement.normalized;
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         rb.velocity = moveDir * moveSpeed;
-
-        Vector2 lookDir = mousePos - rb.position;
-        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
-        // rb.rotation = angle;
 
         // Check if the dash key is pressed and the character is not already dashing
         if (Input.GetKeyDown(dashKey) && canDash)
