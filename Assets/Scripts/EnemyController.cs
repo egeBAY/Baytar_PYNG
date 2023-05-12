@@ -8,6 +8,9 @@ public class EnemyController : MonoBehaviour
     public float maxHealth = 3f;
     public float health;
 
+    
+    private Transform player;
+
     private float distanceThreshold = 0.1f;
     private int currentIndex = 0;
     private GameObject waypoints;
@@ -15,6 +18,7 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         health = maxHealth;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     public void TakeDamage(float damageAmount)
@@ -26,4 +30,14 @@ public class EnemyController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void Update()
+    {
+        if (player != null)
+        {
+            Vector2 direction = player.position - transform.position;
+            direction.Normalize();
+
+            transform.Translate(direction * speed * Time.deltaTime);
+        }
+    }    
 }
