@@ -16,17 +16,18 @@ public class PlayerCombatController : MonoBehaviour
     private Rigidbody2D rb;
     private Transform aimPos;
     private Vector3 mousePos;
-    private SpriteRenderer charSprite;
-    [SerializeField] private Sprite leftCharSprite;
-    [SerializeField] private Sprite rightCharSprite;
-    [SerializeField] private Sprite upCharSprite;
-    [SerializeField] private Sprite downCharSprite;
+    private Animator animator;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+<<<<<<< Updated upstream
         aimPos = transform.Find("GrabPoint");
         charSprite = GetComponent<SpriteRenderer>();
+=======
+        aimPos = transform.Find("GunSprite");
+        animator = GetComponent<Animator>();
+>>>>>>> Stashed changes
     }
 
     private void Update()
@@ -67,7 +68,7 @@ public class PlayerCombatController : MonoBehaviour
 
         if (angle < 30 && angle > -30)
         {
-            charSprite.sprite = rightCharSprite;
+            
         }
         else if(angle >30 && angle < 130)
         {
@@ -75,7 +76,7 @@ public class PlayerCombatController : MonoBehaviour
         }
         else if (angle > 150)
         {
-            charSprite.sprite = leftCharSprite;
+            
         }
         else if(angle > -130 && angle < -50)
         {
