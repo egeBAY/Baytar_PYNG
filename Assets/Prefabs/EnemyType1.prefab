@@ -134,6 +134,9 @@ MonoBehaviour:
   speed: 2
   maxHealth: 2
   health: 0
+  damage: 5
+  attackRange: 5
+  playerHealth: {fileID: -4078891256177745891, guid: 2f87ffd9fc9acfa449a5802695d9ece2, type: 3}
 --- !u!50 &5861884643239162548
 Rigidbody2D:
   serializedVersion: 4
@@ -149,12 +152,12 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &5095022549527158513
 BoxCollider2D:
   m_ObjectHideFlags: 0

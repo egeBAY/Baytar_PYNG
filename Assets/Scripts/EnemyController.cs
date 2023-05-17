@@ -16,7 +16,12 @@ public class EnemyController : MonoBehaviour
     private int currentIndex = 0;
     private GameObject waypoints;
     
-    private GameObject baseObject;    
+    private GameObject baseObject; 
+
+    
+    public PlayerHealth playerHealth;
+
+
     private void Start()
     {
         health = maxHealth;
@@ -43,7 +48,7 @@ public class EnemyController : MonoBehaviour
             transform.Translate(direction * speed * Time.deltaTime);
             
         }
-                // Calculate the distance between the enemy and the player
+            // Calculate the distance between the enemy and the player
         float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
 
         // Move towards the base if the object has the "Enemy" tag
@@ -53,19 +58,18 @@ public class EnemyController : MonoBehaviour
             transform.Translate(direction * speed * Time.deltaTime);
         }
 
-        // Attack the player if within range and the object has the "Player" tag
-        if (gameObject.CompareTag("Player") && distanceToPlayer <= attackRange)
-        {
-            AttackPlayer();
-        }
+        
+        
     } 
-    private void AttackPlayer()
+    
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Inflict damage to the player
-        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
-        if (playerHealth != null)
+
+        if(collision.gameObject.tag == "Player")
         {
+            Debug.Log("A");
             playerHealth.TakeDamage(damage);
         }
-    }     
+    }
+   
 }
