@@ -17,23 +17,29 @@ public class PlayerCombatController : MonoBehaviour
     private Transform aimPos;
     private Vector3 mousePos;
     private Animator animator;
+    private SpriteRenderer charSprite;
+    public bool hasMeleeWeapon;
+    public bool hasRangedWeapon;
+
+    [SerializeField] private Sprite leftCharSprite;
+    [SerializeField] private Sprite rightCharSprite;
+    [SerializeField] private Sprite upCharSprite;
+    [SerializeField] private Sprite downCharSprite;
+    [SerializeField] private GameObject crossHair;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-<<<<<<< Updated upstream
         aimPos = transform.Find("GrabPoint");
         charSprite = GetComponent<SpriteRenderer>();
-=======
-        aimPos = transform.Find("GunSprite");
         animator = GetComponent<Animator>();
->>>>>>> Stashed changes
     }
 
     private void Update()
     {
-        Aim();
+        //Aim();
         Shoot();
+        MoveCrossHair();
     }
 
     private void Shoot()
@@ -68,7 +74,7 @@ public class PlayerCombatController : MonoBehaviour
 
         if (angle < 30 && angle > -30)
         {
-            
+            charSprite.sprite = rightCharSprite;
         }
         else if(angle >30 && angle < 130)
         {
@@ -76,12 +82,31 @@ public class PlayerCombatController : MonoBehaviour
         }
         else if (angle > 150)
         {
-            
+            charSprite.sprite = leftCharSprite;
         }
         else if(angle > -130 && angle < -50)
         {
             charSprite.sprite = downCharSprite;
         }
         
+    }
+
+    private void MoveCrossHair()
+    {
+        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 aim = new Vector3(mousePos.x, mousePos.y, 0.0f);
+
+        if(aim.magnitude > 0.0f)
+        {
+            aim.Normalize();
+            aim *= 2f;
+            crossHair.transform.localPosition = aim;
+            crossHair.SetActive(true);
+        }
+
+        else
+        {
+            crossHair.SetActive(false);
+        }
     }
 }

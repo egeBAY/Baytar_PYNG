@@ -9,6 +9,13 @@ public class PlayerPickupController : MonoBehaviour
     [SerializeField] private Transform grabPoint;
     private bool isInterractKeyPressed;
 
+    PlayerCombatController playerCombat;
+
+    private void Awake()
+    {
+        playerCombat = GetComponent<PlayerCombatController>();
+    }
+
     private void Update()
     {
         isInterractKeyPressed = Input.GetKey(KeyCode.E);
@@ -26,13 +33,20 @@ public class PlayerPickupController : MonoBehaviour
 
     private void CollectItem(GameObject collectGameObject)
     {
-        SetPositionOfObject(collectGameObject);
-        collectGameObject.transform.SetParent(transform);
-    }
+        if(collectGameObject.gameObject.name == "Sword")
+        {
+            playerCombat.hasMeleeWeapon = true;
+            playerCombat.hasRangedWeapon = false;
+        }
 
-    private void SetPositionOfObject(GameObject collectedObject)
-    {
-        Transform holdingPoint = collectedObject.transform.Find("HoldPoint");
-        grabPoint.transform.position = holdingPoint.position;
+        else
+        {
+            playerCombat.hasMeleeWeapon = false;
+            playerCombat.hasRangedWeapon = true;
+        }
+            
+            
+        collectGameObject.transform.SetParent(transform);
+        collectGameObject.transform.position = grabPoint.position;
     }
 }
