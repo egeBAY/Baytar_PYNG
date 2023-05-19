@@ -39,7 +39,7 @@ public class PlayerCombatController : MonoBehaviour
     {
         //Aim();
         Shoot();
-        MoveCrossHair();
+        //MoveCrossHair();
     }
 
     private void Shoot()
@@ -89,24 +89,5 @@ public class PlayerCombatController : MonoBehaviour
             charSprite.sprite = downCharSprite;
         }
         
-    }
-
-    private void MoveCrossHair()
-    {
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 aim = new Vector3(mousePos.x, mousePos.y, 0.0f);
-
-        if(aim.magnitude > 0.0f)
-        {
-            aim.Normalize();
-            aim *= 2f;
-            crossHair.transform.localPosition = aim;
-            crossHair.SetActive(true);
-        }
-
-        else
-        {
-            crossHair.SetActive(false);
-        }
     }
 }
