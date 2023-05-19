@@ -43,10 +43,6 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 5861884643239162548, guid: 09dad6007c20082449e20d1ca67d7b50, type: 3}
-      propertyPath: m_GravityScale
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8443359427424995843, guid: 09dad6007c20082449e20d1ca67d7b50, type: 3}
       propertyPath: m_Sprite
       value: 
