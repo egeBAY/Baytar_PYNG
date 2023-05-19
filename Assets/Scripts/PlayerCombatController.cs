@@ -16,23 +16,30 @@ public class PlayerCombatController : MonoBehaviour
     private Rigidbody2D rb;
     private Transform aimPos;
     private Vector3 mousePos;
+    private Animator animator;
     private SpriteRenderer charSprite;
+    public bool hasMeleeWeapon;
+    public bool hasRangedWeapon;
+
     [SerializeField] private Sprite leftCharSprite;
     [SerializeField] private Sprite rightCharSprite;
     [SerializeField] private Sprite upCharSprite;
     [SerializeField] private Sprite downCharSprite;
+    [SerializeField] private GameObject crossHair;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        aimPos = transform.Find("GunSprite");
+        aimPos = transform.Find("GrabPoint");
         charSprite = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
-        Aim();
+        //Aim();
         Shoot();
+        //MoveCrossHair();
     }
 
     private void Shoot()
@@ -63,14 +70,24 @@ public class PlayerCombatController : MonoBehaviour
         Vector3 lookDir = mousePos - transform.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
         aimPos.eulerAngles = new Vector3(0, 0, angle);
+        // transform.rotation = Quaternion.Euler(0, angle, 0);
 
-        if(angle > 90 || angle < -90)
+        if (angle < 30 && angle > -30)
         {
             charSprite.sprite = rightCharSprite;
         }
-        else
+        else if(angle >30 && angle < 130)
+        {
+            charSprite.sprite = upCharSprite;
+        }
+        else if (angle > 150)
         {
             charSprite.sprite = leftCharSprite;
         }
+        else if(angle > -130 && angle < -50)
+        {
+            charSprite.sprite = downCharSprite;
+        }
+        
     }
 }
