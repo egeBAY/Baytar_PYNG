@@ -7,6 +7,7 @@ TagManager:
   - Waypoints
   - Enemy
   - Collectible
+  - Base
   layers:
   - Default
   - TransparentFX

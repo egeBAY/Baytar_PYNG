@@ -67,7 +67,6 @@ public class EnemyController : MonoBehaviour
 
         if(collision.gameObject.tag == "Player")
         {
-            Debug.Log("A");
             playerHealth.TakeDamage(damage);
         }
     }

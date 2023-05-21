@@ -11,7 +11,8 @@ public class PlayerCombatController : MonoBehaviour
     public float bulletLifetime = 4f;
     public float timeBetweenFiring;
     private float timer;
-    
+
+    [Space]
     [Header("Character Attributes")]
     private Rigidbody2D rb;
     private Transform aimPos;
@@ -39,7 +40,6 @@ public class PlayerCombatController : MonoBehaviour
     {
         //Aim();
         Shoot();
-        //MoveCrossHair();
     }
 
     private void Shoot()
@@ -64,30 +64,5 @@ public class PlayerCombatController : MonoBehaviour
         }
     }
 
-    private void Aim()
-    {
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 lookDir = mousePos - transform.position;
-        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
-        aimPos.eulerAngles = new Vector3(0, 0, angle);
-        // transform.rotation = Quaternion.Euler(0, angle, 0);
 
-        if (angle < 30 && angle > -30)
-        {
-            charSprite.sprite = rightCharSprite;
-        }
-        else if(angle >30 && angle < 130)
-        {
-            charSprite.sprite = upCharSprite;
-        }
-        else if (angle > 150)
-        {
-            charSprite.sprite = leftCharSprite;
-        }
-        else if(angle > -130 && angle < -50)
-        {
-            charSprite.sprite = downCharSprite;
-        }
-        
-    }
 }

@@ -19,6 +19,7 @@ public class CharacterBullet : MonoBehaviour
         Vector3 direction = mousePos - transform.position;
         Vector3 rotation = transform.position - mousePos;
         bulletRb.velocity = new Vector2(direction.x, direction.y).normalized * bulletSpeed;
+        transform.Rotate(0.0f, 0.0f, Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
