@@ -168,32 +168,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &4385467384349123224
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 71319287958311431}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.03168553, y: -0.039657563}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
-    newSize: {x: 2, y: 2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.0737427, y: 1.3337529}
-  m_EdgeRadius: 0
 --- !u!95 &356059349609962922
 Animator:
   serializedVersion: 5
@@ -241,9 +215,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.85}
+  m_Offset: {x: -0.015562654, y: -0.48}
   serializedVersion: 2
-  m_Radius: 0.45
+  m_Radius: 0.32596868
 --- !u!1 &7454711686284462218
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,7 +242,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7454711686284462218}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.036, y: -0.158, z: 0}
+  m_LocalPosition: {x: 0.858, y: -0.058, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -389,11 +363,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1092588352794353423, guid: 4a08ef45698a7c5479f03f625bbdb381, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.75
+      value: 0.528
       objectReference: {fileID: 0}
     - target: {fileID: 1092588352794353423, guid: 4a08ef45698a7c5479f03f625bbdb381, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.18
+      value: -0.095
       objectReference: {fileID: 0}
     - target: {fileID: 1092588352794353423, guid: 4a08ef45698a7c5479f03f625bbdb381, type: 3}
       propertyPath: m_LocalPosition.z
