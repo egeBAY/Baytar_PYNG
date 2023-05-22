@@ -5,21 +5,15 @@ using UnityEngine;
 public class CharacterBullet : MonoBehaviour
 {
 
-    public float bulletSpeed = 10f;
+    public Vector2 bulletVelocity = new Vector2(0f,0f);
 
-    private Vector3 mousePos;
-    private Camera mainCam;
-    private Rigidbody2D bulletRb;
 
-    private void Start()
+    private void Update()
     {
-        mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        bulletRb = GetComponent<Rigidbody2D>();
-        mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 direction = mousePos - transform.position;
-        Vector3 rotation = transform.position - mousePos;
-        bulletRb.velocity = new Vector2(direction.x, direction.y).normalized * bulletSpeed;
-        transform.Rotate(0.0f, 0.0f, Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg);
+        Vector2 currentPosition = new Vector2(transform.position.x, transform.position.y);
+        Vector2 newPosition = currentPosition + bulletVelocity * Time.deltaTime;
+
+        transform.position = newPosition;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

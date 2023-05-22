@@ -12,38 +12,28 @@ public class PlayerMovement : MonoBehaviour
     public float dashDuration = 0.5f; // The duration of the dash
     private float dashingCooldown = 1f;
     private KeyCode dashKey = KeyCode.Space; // The key to press for dashing
- 
-    private Rigidbody2D rb;
-    
-    private Vector2 moveDir;  
-    private Vector2 movement;
+
+    private Vector3 movement;
 
     public Animator animator;
 
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-    }
 
-    void Update()
+    void FixedUpdate()
     {
         if (isDashing) return;
 
         // Move the player
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+        movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f) * moveSpeed * Time.deltaTime;
 
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
-        animator.SetFloat("Speed", movement.sqrMagnitude);
-        
-        moveDir = movement.normalized;
+        animator.SetFloat("Speed", movement.magnitude);
 
-        rb.velocity = moveDir * moveSpeed;
-
+        transform.position += movement;
         // Check if the dash key is pressed and the character is not already dashing
-        if (Input.GetKeyDown(dashKey) && canDash)
+        if (Input.GetKey(dashKey) && canDash)
         {
+            
             StartCoroutine(Dash());
         }
     }
@@ -53,7 +43,8 @@ public class PlayerMovement : MonoBehaviour
         canDash = false;
         isDashing = true;
 
-        rb.velocity = moveDir * dashDistance;
+        Vector2 targetPos = transform.position + movement.normalized * dashDistance;
+        transform.position = Vector3.Lerp(transform.position, targetPos, dashDuration);
         yield return new WaitForSeconds(dashDuration);
 
         isDashing = false;

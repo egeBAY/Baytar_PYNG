@@ -8,7 +8,8 @@ public class PlayerCombatController : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform bulletSpawnPoint;
     public bool canFire;
-    public float bulletLifetime = 4f;
+    public float bulletLifetime = 3f;
+    public float bulletSpeed = 10f;
     public float timeBetweenFiring;
     private float timer;
 
@@ -21,12 +22,7 @@ public class PlayerCombatController : MonoBehaviour
     private SpriteRenderer charSprite;
     public bool hasMeleeWeapon;
     public bool hasRangedWeapon;
-
-    [SerializeField] private Sprite leftCharSprite;
-    [SerializeField] private Sprite rightCharSprite;
-    [SerializeField] private Sprite upCharSprite;
-    [SerializeField] private Sprite downCharSprite;
-    [SerializeField] private GameObject crossHair;
+    public GameObject crossHair;
 
     private void Awake()
     {
@@ -38,12 +34,16 @@ public class PlayerCombatController : MonoBehaviour
 
     private void Update()
     {
-        //Aim();
-        Shoot();
+        AimAndShoot();
     }
 
-    private void Shoot()
+    private void AimAndShoot()
     {
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        crossHair.transform.position = mousePos;
+        mousePos.Normalize();
+
+
         if (!canFire)
         {
             timer += Time.deltaTime;
@@ -58,8 +58,8 @@ public class PlayerCombatController : MonoBehaviour
         {   
             canFire = false;
             GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
-
-            // Destroy the bullet after a set amount of time
+            bullet.GetComponent<CharacterBullet>().bulletVelocity = mousePos * bulletSpeed;
+            bullet.transform.Rotate(0f, 0f, Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg);
             Destroy(bullet, bulletLifetime);
         }
     }
