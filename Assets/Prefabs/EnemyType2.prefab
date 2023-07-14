@@ -15,6 +15,14 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4455039993734434670, guid: 09dad6007c20082449e20d1ca67d7b50, type: 3}
+      propertyPath: chaseRange
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4455039993734434670, guid: 09dad6007c20082449e20d1ca67d7b50, type: 3}
+      propertyPath: attackRange
+      value: 0.55
+      objectReference: {fileID: 0}
     - target: {fileID: 5095022549527158513, guid: 09dad6007c20082449e20d1ca67d7b50, type: 3}
       propertyPath: m_Size.x
       value: 0.73358405

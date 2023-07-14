@@ -20,6 +20,7 @@ public class PlayerCombatController : MonoBehaviour
     private Vector3 mousePos;
     private Animator animator;
     private SpriteRenderer charSprite;
+    private Transform itemPos;
     public bool hasMeleeWeapon;
     public bool hasRangedWeapon;
     public GameObject crossHair;
@@ -30,6 +31,7 @@ public class PlayerCombatController : MonoBehaviour
         aimPos = transform.Find("GrabPoint");
         charSprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        itemPos = transform.Find("ItemSprite").transform;
     }
 
     private void Update()
@@ -39,9 +41,12 @@ public class PlayerCombatController : MonoBehaviour
 
     private void AimAndShoot()
     {
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 aimDir = (mousePos - transform.position).normalized;
+        float angle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg;
+        itemPos.eulerAngles = new Vector3(0, 0, angle);
+        
         crossHair.transform.position = mousePos;
-        mousePos.Normalize();
 
 
         if (!canFire)
@@ -54,12 +59,12 @@ public class PlayerCombatController : MonoBehaviour
             }
         }
         
-        if (Input.GetButtonDown("Fire1") && canFire)
+        if (Input.GetMouseButtonDown(0) && canFire)
         {   
             canFire = false;
             GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
-            bullet.GetComponent<CharacterBullet>().bulletVelocity = mousePos * bulletSpeed;
-            bullet.transform.Rotate(0f, 0f, Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg);
+            bullet.GetComponent<Rigidbody2D>().velocity = aimDir * bulletSpeed;
+            bullet.transform.Rotate(0f, 0f, Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg);
             Destroy(bullet, bulletLifetime);
         }
     }

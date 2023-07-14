@@ -9,16 +9,22 @@ public class PlayerMovement : MonoBehaviour
     private bool canDash = true;
     private bool isDashing; // Whether the character is currently dashing or not
     public float dashDistance = 5f; // The distance the character will dash
-    public float dashDuration = 0.5f; // The duration of the dash
+    public float dashDuration = 1f; // The duration of the dash
     private float dashingCooldown = 1f;
     private KeyCode dashKey = KeyCode.Space; // The key to press for dashing
 
     private Vector3 movement;
 
     public Animator animator;
+    private Rigidbody2D rb;
+
+    private void Awake()
+    {
+        rb = this.GetComponent<Rigidbody2D>();
+    }
 
 
-    void FixedUpdate()
+    void Update()
     {
         if (isDashing) return;
 
@@ -31,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
 
         transform.position += movement;
         // Check if the dash key is pressed and the character is not already dashing
-        if (Input.GetKey(dashKey) && canDash)
+        if (Input.GetKeyDown(dashKey) && canDash)
         {
             
             StartCoroutine(Dash());
@@ -43,10 +49,9 @@ public class PlayerMovement : MonoBehaviour
         canDash = false;
         isDashing = true;
 
-        Vector2 targetPos = transform.position + movement.normalized * dashDistance;
-        transform.position = Vector3.Lerp(transform.position, targetPos, dashDuration);
+        rb.velocity = movement.normalized * dashDistance;
         yield return new WaitForSeconds(dashDuration);
-
+        rb.velocity = new Vector2(0f, 0f);
         isDashing = false;
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;

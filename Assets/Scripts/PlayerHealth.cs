@@ -7,38 +7,28 @@ public class PlayerHealth : MonoBehaviour
 {
     public float maxHealth = 100f;
     private float currentHealth;
+    private Transform healthBar;
 
     private void Start()
     {
         currentHealth = maxHealth;
+        healthBar = transform.Find("HealthBar").transform.Find("Bar");
     }
 
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
+        SetHealthBarSize(currentHealth / maxHealth);
         Debug.Log("Player took " + damage + " damage.");
         Debug.Log(currentHealth);
         if (currentHealth <= 0)
         {
-            Die();
+            Debug.Log("YOU HAVE DIED");
         }
     }
 
-    private void Die()
+    public void SetHealthBarSize(float sizeNormalized)
     {
-        Debug.Log("Player died.");
-
-        // Show game over screen (assuming you have a separate scene for the game over screen)
-        //SceneManager.LoadScene("GameOverScene");
-
-        // Alternatively, you can implement respawn logic instead of loading a game over scene
-        // RespawnPlayer();
-    }
-
-    private void RespawnPlayer()
-    {
-        // Reset player position, health, or any other necessary state
-        transform.position = Vector3.zero;
-        currentHealth = maxHealth;
+        healthBar.localScale = new Vector3(sizeNormalized, 1f);
     }
 }
